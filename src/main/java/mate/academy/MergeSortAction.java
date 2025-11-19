@@ -24,14 +24,7 @@ public class MergeSortAction extends RecursiveAction {
             System.arraycopy(array, 0, left, 0, mid);
             System.arraycopy(array, mid, right, 0, array.length - mid);
 
-            MergeSortAction leftAction = new MergeSortAction(left);
-            MergeSortAction rightAction = new MergeSortAction(right);
-
-            leftAction.fork();
-            rightAction.fork();
-            leftAction.join();
-            rightAction.join();
-
+            invokeAll(new MergeSortAction(left), new MergeSortAction(right));
             merge(array, left, right);
         }
     }
